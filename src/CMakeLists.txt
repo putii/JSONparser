@@ -1,6 +1,38 @@
-################### LIFETIME CLASS PLAYGROUND ###################
+################################ LIFETIME CLASS PLAYGROUND ################################
 
 add_executable(lifetime lifetime.cpp)
+
+################################ CharParser STATIC LIBRARY ################################
+add_library(Parser Parser.cpp)
+
+# Include the directory containing the header file
+target_include_directories(Parser
+        PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/Parser>
+)
+
+################################ CharParser STATIC LIBRARY ################################
+add_library(CharParser CharParser.cpp)
+
+# Include the directory containing the header file
+target_include_directories(CharParser
+        PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/CharParser>
+)
+
+################################ JsonValue STATIC LIBRARY ################################
+add_library(JsonValue JsonValue.cpp)
+
+# Include the directory containing the header file
+target_include_directories(JsonValue
+        PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/JsonValue>
+)
+
+################################ Functor STATIC LIBRARY ################################
+add_library(Functor Functor.cpp)
+
+# Include the directory containing the header file
+target_include_directories(Functor
+        PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/Functor>
+)
 
 ################### MAIN BINARY ###################
 # Create executable target for your main source file

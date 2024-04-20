@@ -1,6 +1,7 @@
-#include <source_location>
 #include <cstdio>
 #include <optional>
+#include <source_location>
+
 
 void print(const std::source_location& location =
 std::source_location::current()) noexcept {
@@ -25,7 +26,9 @@ struct Lifetime {
     }
 };
 
+
+
 int main() {
-  std::optional<Lifetime> lifetimeOptional = std::make_optional<Lifetime>();
+
   return 0;
 }

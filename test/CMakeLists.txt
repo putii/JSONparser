@@ -23,6 +23,9 @@ target_link_libraries(testsTarget
             doublyLinkedList::doublyLinkedList_options
             optimization_flags_interface_library # optimization flag -O<[0,1,2,3]>
             gtest_main
-            DoublyLinkedSortedList)
+            Functor
+            JsonValue
+            CharParser
+            Parser)
 
 add_test(NAME mainZeroArgs COMMAND main)

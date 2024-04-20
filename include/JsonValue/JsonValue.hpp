@@ -24,7 +24,7 @@ union JsonContent {
   std::unordered_map<std::string, JsonValue> o;
 };
 
-struct JsonValue {
+struct JsonValue { // parsing tree
   JsonType t;
   JsonContent c;
 };
