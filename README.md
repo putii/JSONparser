@@ -1,10 +1,14 @@
 # JSONparser
 
-TODO
+> :warning: **IMPORTANT**: This project is currently under development and may not function as expected. Please check back later for updates.
+
+JSONparser is a C++, functional implementation-to-be of JSON parser.
 
 ## Features
 
-TODO
+So far only implemented:
+- Functor implementation
+- JSON parser tree class
 
 ## Getting Started
 
@@ -12,7 +16,6 @@ TODO
 
 - C++ compiler with support for C++20; tested on: 
   - gcc 13.2.0
-  - clang 17.0.6
 - CMake 3.26 or higher.
 
 ### Building the Project

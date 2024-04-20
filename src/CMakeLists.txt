@@ -1,7 +1,3 @@
-################################ LIFETIME CLASS PLAYGROUND ################################
-
-add_executable(lifetime lifetime.cpp)
-
 ################################ CharParser STATIC LIBRARY ################################
 add_library(Parser Parser.cpp)
 

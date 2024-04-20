@@ -28,4 +28,7 @@ target_link_libraries(testsTarget
             CharParser
             Parser)
 
-add_test(NAME mainZeroArgs COMMAND main)
+################################ LIFETIME CLASS PLAYGROUND ################################
+
+add_executable(lifetime lifetime.cpp)
+
