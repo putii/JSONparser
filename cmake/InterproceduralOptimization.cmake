@@ -1,0 +1,10 @@
+macro(doublyLinkedList_enable_ipo)
+  include(CheckIPOSupported)
+  check_ipo_supported(RESULT result OUTPUT output LANGUAGES CXX) # added LANGUAGES CXX, b/c it was shouting "  IPO is not supported: CMake doesn't support IPO for current C compiler"
+  if(result)
+    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
+    message(STATUS "IPO is supported: ${output}. CMAKE_INTERPROCEDURAL_OPTIMIZATION set ON ")
+  else()
+    message(SEND_ERROR "IPO is not supported: ${output}")
+  endif()
+endmacro()
