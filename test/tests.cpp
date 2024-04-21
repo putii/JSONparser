@@ -50,7 +50,11 @@ TEST(b_milewski, TheListFunctor) {
 }*/
 
 ///////////////////////////////////////////////
+/**
+ * Here goes B. Milewski inspired Functor
+ */
 
+/*
 template<typename A>
 class Functor {
 public:
@@ -59,6 +63,15 @@ public:
   // private: // do i really need the value to be private ?
   A value;
 };
+
+*/
+/*
+ * Do i really need template<typename> typename Functor parameter here:
+ * template<typename A, typename B, template<typename> typename Functor>
+ * or maybe just
+ * template<typename A, typename B>
+ * ???
+ *//*
 
 template<typename A, typename B, template<typename> typename Functor>
 Functor<B> fmap(const std::function<B(A)>& f, const Functor<A>& functorA) {
@@ -77,8 +90,10 @@ TEST(FunctorWithOneTemplateParam, SimpleExamples) {
   const auto converterTransformer = [](const std::string& s) {
     return std::stoi(s) - 121;
   };
-  /* fmap(converter, functorStr).print(); // cannot deduce proper string type - gets stuck
-   * on std::string& vs const std::string& */
+  */
+/* fmap(converter, functorStr).print(); // cannot deduce proper string type - gets stuck
+ * on std::string& vs const std::string& *//*
+
   auto functorInt = fmap<std::string, int>(converterTransformer, functorStr);
   functorInt.print();
   // functorRef = functorInt; // will not compile - types do not match
@@ -87,4 +102,59 @@ TEST(FunctorWithOneTemplateParam, SimpleExamples) {
   };
   auto functorFloat = fmap<int, float>(floatCircleArea, functorInt);
   functorFloat.print();
+}
+*/
+
+///////////////////////////////////////////////
+/**
+ * Here I want to implement another approach to C++ Functor implementation
+ * I would like different Functor types share the same interface
+ * So I could have a reference to different template classes of Functor
+ * I am not sure whether I will need it or not,
+ * but for now let's just pick up this gauntlet
+ * Maybe call my concrete template generic classes TypedFunctor or GenericFunctor ?
+ */
+
+
+class Functor { // glossary: interface - if; interfaced - ifed
+public:
+  virtual void print() const = 0;
+  // TODO How to tackle that ?
+  /*
+   * what if I stored value in some (smart) pointer,
+   * getValue would get the pointer to this value, casted it to void*
+   * and then the getValue() caller would need to recast it back
+   * to the valid type?
+   */
+  // virtual void* getValue() = 0; // TODO Implement
+  virtual ~Functor() = 0;
+};
+
+/**
+ * AFAIUnderstand, all GenericFunctor template classes will share
+ * Functor interface, allowing to use Functor as a reference
+ * for different GenericFunctor template classes
+ * @tparam A type of value stored by GenericFunctor
+ */
+template<typename A>
+class GenericFunctor : public Functor {
+public:
+  GenericFunctor(const A& value_) : value(std::make_unique<A>(value_)) {}
+  void print() const override { std::cout << value << '\n'; }
+  // void* getValue() override {}
+  // private: // do i really need the value to be private ?
+  std::unique_ptr<A> value;
+  ~GenericFunctor() override = default;
+};
+
+template<typename A, typename B>
+GenericFunctor<B> fmap(const std::function<B(A)>& f, const GenericFunctor<A>& functorA) {
+  return GenericFunctor<B>{ f(functorA.value) };
+}
+
+TEST(FunctorWithOneTemplateParam, AnotherApproach) {
+  // TODO: Before implementing start with writing tests focusing on desired programmer
+  // interface
+  GenericFunctor genericFunctor{ std::string("123") };
+  Functor& functorRef = genericFunctor;
 }
